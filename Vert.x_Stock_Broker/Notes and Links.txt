@@ -1,0 +1,24 @@
+->vertx web client = Asynchronous http web client, It is used for testing purpose and in the project itself
+                     for eg: can be used as client for other rest apis and also as proxy
+
+-> Till lect 40 all endpoints are http endpoints
+-> put does not work if bodyhandler is not registered properly
+-> BODY HANDLER can be registered through route for eg : it can be registered only for watchlist route or we can add it to the parent routers
+           => it is posssible to add some custom properties to the body handler   
+
+lect 43:
+->while creating httpis , it is best prcatice to set the http content type header to the value application/json ==> this s interestiing for the consumers using the api
+  => we wil set the headder and edit tester's version of it
+DOUBTS
+->fLUENT API
+->use of .to buffer() : QuotesRestApi line 32
+
+context -> {
+      final JsonArray response = new JsonArray();
+      ASSETS.stream().map(a -> new Asset(a)).forEach(response::add); //mapping all strings to a new asset object and adding each one of them to response => each time they get the end point of assets,it's retrieved and will generate a json array response from the static list of assets
+      LOG.info("Path {} responds with {}",context.normalizedPath() , response.encode());
+      context.response()
+        .putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON)
+        .putHeader("my-header","my-value")
+        .end(response.toBuffer());
+    }
